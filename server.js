@@ -80,7 +80,6 @@ function createSearch(request, response) {
     .then(results => response.render('pages/searches/show', {searchResults: results}));
 
   // console.log('result', );
-//   // how will we handle errors?
 }
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
