@@ -3,15 +3,15 @@ Code Fellows 301 - Best Books Project
 
 ## Time Estimate
 
-Lab 11 Feature 
+Lab 11 Feature # 1
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1 hour
 
-Start time: 
+Start time: 10am
 
-Finish time: 
+Finish time: 10:30am
 
-Actual time needed to complete: 
+Actual time needed to complete: 30 minutes
 
 
 **Authors**
