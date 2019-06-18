@@ -1,28 +1,32 @@
 {
-  "name": "lab-06-back-end",
+  "name": "best-books",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Code Fellows 301 - Best Books Project",
+  "main": "server.js",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "superagent": "^5.1.0"
+    
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js"
+
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joannaarroyo/lab-06-back-end.git"
+    "url": "git+https://github.com/NaamaBarIlan/best-books.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joannaarroyo/lab-06-back-end/issues"
+    "url": "https://github.com/NaamaBarIlan/best-books/issues"
   },
-  "homepage": "https://github.com/joannaarroyo/lab-06-back-end#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^8.0.0",
-    "ejs": "^2.6.2",
-    "express": "^4.17.1",
-    "nodemon": "^1.19.1"
-  }
+  "homepage": "https://github.com/NaamaBarIlan/best-books#readme"
 }
