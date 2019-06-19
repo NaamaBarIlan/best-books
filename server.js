@@ -58,8 +58,7 @@ function newSearch(request, response) {
   response.render('pages/index');
 }
 
-// // No API key required
-// // Console.log request.body and request.body.search
+// No API key required
 function createSearch(request, response) {
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
@@ -67,13 +66,10 @@ function createSearch(request, response) {
   console.log('this is request body search', request.body.search);
   console.log('Test', request.body.search[1]);
 
-
   if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
   if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
   console.log('url', url);
 
-
-  // WARNING: won't work as is. Why not?
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', {searchResults: results}))

@@ -1,16 +1,13 @@
+/* Base.css - any general styling on top of what is provided by a reset.css or normalize.css file (these files will be discussed in further detail in lecture)
+1. Apply to elements such as body and main
+2. Examples include styling of overall font and background color */
+
+
 * {
-    background-color: grey;
-    margin: 0 auto;
-    color: white;
-    font-size: 30px;
+   
+    /* margin: 0 auto; */
+    color: #0D0D0D;
+    /* font-size: 30px; */
+    font-family: 'Rubik', sans-serif;
 }
 
-img {
-    width: 15%;
-}
-ul{
-    margin: 0 auto;
-    color: white;
-    font-size: 30px;
-
-}
