@@ -1,3 +1,16 @@
 * {
     background-color: grey;
+    margin: 0 auto;
+    color: white;
+    font-size: 30px;
+}
+
+img {
+    width: 15%;
+}
+ul{
+    margin: 0 auto;
+    color: white;
+    font-size: 30px;
+
 }
