@@ -4,10 +4,21 @@
     <title>Book Collection</title>
     <link rel="stylesheet" href="styles/reset.css" />
     <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/modules.css" />
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Rubik&display=swap" rel="stylesheet">
   </head>
   <body>
     <main>
-      <h4>Search by Title or Author</h4>
+
+      <nav>
+        <h1>Best Books!</h1>
+      </nav>
+
+      <div id="search-title">
+        <h4>Search by Title or Author</h4>
+      </div>
+  
       <form action="/searches" method="post">
         <input type="text" name="search" placeholder="Enter a title or author" required>
         <fieldset>
@@ -24,6 +35,7 @@
         </fieldset>
         <button type="submit">Search the Google Books API</button>
       </form>
+      
     </main>
   </body>
 </html>

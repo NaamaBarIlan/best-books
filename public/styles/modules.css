@@ -1,0 +1,25 @@
+/* 
+modules.css - smaller components on the page:
+1. Apply to elements such as list items, individual images, specific paragraphs
+2. Classes and descendant selectors should primarily be included here */
+
+h1 {
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 30px;
+    float: left;
+    color: #D9CCC1;
+    margin-left: 15px;
+}
+
+h4 {
+    color: #D9CCC1;
+    font-size: 20px;
+}
+
+img {
+    width: 15%;
+}
+ul{
+    color: white;
+    font-size: 30px;
+}

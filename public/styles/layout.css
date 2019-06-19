@@ -1,0 +1,43 @@
+/* 
+layout.css - general positioning on the page:
+1. Apply to elements such as header, footer, nav, aside
+2. Classes and IDs can be included here*/
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+/* Default media - Mobile */
+
+main {
+    background-color:#ADC5D9;
+    width: 480px;
+    height: 1500px;
+    margin: 0 auto;
+    text-align: center;
+    /* border: 2px solid black; */
+}
+
+nav {
+    background-color: #0D0D0D;
+    height: 75px;
+    line-height: 75px;
+}
+
+#search-title {
+    background-color: #3C4C59;
+    height: 75px;
+    line-height: 75px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input {
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 20px;
+}

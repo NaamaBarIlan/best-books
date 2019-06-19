@@ -13,6 +13,17 @@ Finish time: 10:30am
 
 Actual time needed to complete: 30 minutes
 
+## Style Guide
+
+Color Palette:
+#3C4C59
+#8EA8BF
+#ADC5D9
+#D9CCC1
+#0D0D0D
+
+font-family: 'Alfa Slab One', cursive;
+font-family: 'Rubik', sans-serif;
 
 **Authors**
 
