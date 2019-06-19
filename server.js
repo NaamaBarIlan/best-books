@@ -3,6 +3,10 @@
 // Application Dependencies
 const express = require('express');
 const superagent = require('superagent');
+const pg = require('pg');
+
+// Environment variables
+require('dotenv').config();
 
 // Application Setup
 const app = express();
@@ -12,12 +16,30 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
+// Database Setup
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
+
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
-// API Routes
+// API Routes:
+
+// Renders the home page
+app.get('/', (request, response) => {
+  let SQL = `SELECT * FROM books`;
+  return client.query(SQL)
+    .then(results => {
+      console.log('!!!!! results.rows', results.rows); 
+      console.log('!!!!! results.rows.length', results.rows.length) ;
+      response.render('pages/index', {results: results.rows})
+    })
+
+});
+
 // Renders the search form
-app.get('/', newSearch);
+app.get('/searches/new', newSearch);
 
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
@@ -55,7 +77,7 @@ function Book(info) {
 
 // Note that .ejs file extension is not required
 function newSearch(request, response) {
-  response.render('pages/index');
+  response.render('pages/searches/new');
 }
 
 // No API key required

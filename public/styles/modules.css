@@ -12,7 +12,11 @@ h1 {
 }
 
 h4 {
-    color: #D9CCC1;
+    color: black;
+    font-size: 20px;
+}
+
+h3 {
     font-size: 20px;
 }
 
