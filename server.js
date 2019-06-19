@@ -42,11 +42,15 @@ app.get('*', (request, response) => response.status(404).send('This route does n
 // HELPER FUNCTIONS
 // Only show part of this to get students started
 function Book(info) {
-  // const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+
+  let httpRegex = /^(https:\/\/)?g/
 
   this.authors = info.authors || 'No author available';
-  this.title = info.title || 'No title available';
-  this.image = info.imageLinks.thumbnail;
+  this.title = info.title ? info.title : 'No title available';
+  this.isbn = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
+  this.image = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https') : placeholderImage;
+  this.description = info.description ? info.description : 'No description available';
 }
 
 // Note that .ejs file extension is not required
@@ -61,7 +65,7 @@ function createSearch(request, response) {
 
   console.log('this is request body!', request.body);
   console.log('this is request body search', request.body.search);
-  console.log('TEst', request.body.search[1]);
+  console.log('Test', request.body.search[1]);
 
 
   if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
@@ -71,15 +75,16 @@ function createSearch(request, response) {
 
   // WARNING: won't work as is. Why not?
   superagent.get(url)
-    .then(apiResponse => {
-      let bookArray = apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo))
-      console.log('testimage', bookArray);
-      return bookArray;
-    })
-
-    .then(results => response.render('pages/searches/show', {searchResults: results}));
-
+    .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
+    .then(results => response.render('pages/searches/show', {searchResults: results}))
+    .catch(error => handleError(error, response));
   // console.log('result', );
+}
+
+// Error handling
+function handleError(error, response) {
+  console.error(error);
+  response.status(500).send('Sorry, something went wrong')
 }
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
