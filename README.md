@@ -16,11 +16,11 @@ Actual time needed to complete: 30 minutes
 ## Style Guide
 
 Color Palette:
-#3C4C59
-#8EA8BF
-#ADC5D9
-#D9CCC1
-#0D0D0D
+#F2F2F2
+#D9D9D9
+#A6A6A6
+#595959
+#404040
 
 font-family: 'Alfa Slab One', cursive;
 font-family: 'Rubik', sans-serif;
