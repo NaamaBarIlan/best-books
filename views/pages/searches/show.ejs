@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles/reset.css" />
-    <link rel="stylesheet" href="styles/base.css" />
+    <%- include('../../layouts/head') %>
+
     <title>Document</title>
 </head>
 <body>
@@ -18,6 +15,16 @@
           <li><%= item.title %></li>
           <li><%= item.authors %></li>
           <li><%= item.description %></li>
+          <form id="create-form" action="/searches" method="post">
+            <input type="text" name="title" placeholder="<%= item.title %>" required>
+            <input type="text" name="author" placeholder="<%= item.authors %>" required>
+            <input type="text" name="ISBN" placeholder="<%= item.ISBN %>" required>
+            <input type="text" name="imageURL" placeholder="<%= item.image_url %>" required>
+            <input type="text" name="description" placeholder="<%= item.description %>" required>
+            <input type="text" name="bookshelf" placeholder="Enter a bookshelf name" required>
+
+            <button class="lng-btn" type="submit">Add to database</button>
+          </form>
         <% }) %>
   
       </ul>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <main>
+      <section class="book-view container">
+        <ul id="book-list">
+          <li class="books-item" data-id="<%= book.id %>">
+            <img src="<%=book.image_url%>">
+            <h4>Title: <%= book.title %></h4>
+            <p>Authors: <%= book.authors %></p>
+            <p>ISBN: <%= book.ISBN %>
+            <p>Description: <%= book.description %></p>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

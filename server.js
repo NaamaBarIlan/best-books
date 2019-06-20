@@ -26,6 +26,12 @@ app.set('view engine', 'ejs');
 
 // API Routes:
 
+// Renders the home page
+app.get('/', renderHomepage);
+
+// details of single book
+app.get('/books/:id', viewBookDetails);
+
 // Renders the search form
 app.get('/searches/new', newSearch);
 
@@ -33,30 +39,7 @@ app.get('/searches/new', newSearch);
 app.post('/searches', createSearch);
 
 
-// Renders the home page
-app.get('/', (request, response) => {
-  let SQL = `SELECT * FROM books`;
-
-  return client.query(SQL)
-    .then(results => {
-      // TODO: add an if/else here --->
-      // if (results.rowCount === 0) {
-      // res.render('pages/searches/new')
-      // } else {
-      // res.render('pages/index', {books:result.row});
-      // }
-      console.log('!!!!! results.rows', results.rows); 
-      console.log('!!!!! results.rows.length', results.rows.length) ;
-      response.render('pages/index', {results: results.rows})
-    })
-    // TODO: add .catch(err => handleError(err, res));
-});
-
-
-// Test route
-// app.get('/', (request, response) => {
-//   response.render('pages/index', { message: 'Woohoo'});
-// })
+app.post('/books', createBook);
 
 // arguments pulled out, refactor to use inline as needed
 const path = '*';
@@ -84,10 +67,55 @@ function Book(info) {
   this.description = info.description ? info.description : 'No description available';
 }
 
-// Note that .ejs file extension is not required
+function viewBookDetails(request, response) {
+  let SQL ='SELECT * FROM books WHERE id = $1;';
+  let values = [request.params.id];
+
+  return client.query(SQL, values)
+    .then(result => {
+      return response.render('pages/books/detail', {book: result.rows[0]});
+    })
+    .catch(error => handleError(error, response));
+}
+
+function createBook(request, response){
+  // ******* Creates a book in our DB *******
+  let { author, title, ISBN, image_url, description, bookshelf } = request.body;
+  let SQL = 'INSERT INTO books(author, title, ISBN, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6);';
+  let values = [author, title, ISBN, image_url, description, bookshelf];
+
+  return client.query(SQL, values)
+    .then(() => {
+      SQL = 'SELECT * FROM "books" WHERE ISBN=$1;';
+      values = [request.body.ISBN];
+      return client.query(SQL, values)
+        .then(result => response.redirect(`/book/${result.rows[0].id}`))
+        .catch(error => handleError(error, response))
+    })
+    .catch(error => handleError(error, response));
+}
+
 function newSearch(request, response) {
   response.render('pages/searches/new');
 }
+
+
+function renderHomepage(request, response) {
+  let SQL = `SELECT * FROM books`;
+
+  return client.query(SQL)
+    .then(results => {
+      // TODO: add an if/else here --->
+      // if (results.rowCount === 0) {
+      // res.render('pages/searches/new')
+      // } else {
+      // res.render('pages/index', {books:result.row});
+      // }
+      response.render('pages/index', {results: results.rows})
+    })
+    // .catch(error => handleError(error, response));
+}
+
 
 // No API key required
 function createSearch(request, response) {
