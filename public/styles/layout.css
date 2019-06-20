@@ -10,7 +10,7 @@ layout.css - general positioning on the page:
 /* Default media - Mobile */
 
 main {
-    background-color:#ADC5D9;
+    background-color:#D9D9D9;
     width: 480px;
     height: 1500px;
     margin: 0 auto;
@@ -18,26 +18,24 @@ main {
     /* border: 2px solid black; */
 }
 
+/* Header */
+
 nav {
-    background-color: #0D0D0D;
+    background-color: #595959;
     height: 75px;
     line-height: 75px;
 }
 
-#search-title {
-    background-color: #3C4C59;
-    height: 75px;
-    line-height: 75px;
+.sub-title {
+    background-color: #A6A6A6;
+    height: 50px;
+    line-height: 50px;
 }
 
-form {
-    margin-top: 20px;
-}
-
-input {
-    margin-top: 20px;
-}
-
-button {
-    margin-top: 20px;
+footer {
+    width: 480px;
+    margin: 0 auto;
+    background-color: #595959;
+    height: 50px;
+    line-height: 50px;
 }

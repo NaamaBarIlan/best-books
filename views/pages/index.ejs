@@ -16,23 +16,27 @@
         <h1>Best Books!</h1>
       </nav>
 
-      <h3>Number of Books: <%= results.length %></h3>
+      <div class="sub-title">
+          <h3><%= results.length %> Saved Books</h3>
+      </div>
+
 
       <section class="book-view container">
           <ul id="book-list">
             <% results.forEach(book => { %>
               <li class="book-item" data-id="<%= book.id %>">
-                
-                <h4>Title: <%= book.title %></h4>
-                <p>Author: <%= book.author %></p>
+
                 <img src="<%=book.image_url%>">
+                <h4 class="book-title"><%= book.title %></h4>
+                <p class="book-author"><%= book.author %></p>
               
-                <a href="/books/detail<%= book.id%>"</a>View Details</a>
+                <a class="view-details-button" href="/books/detail<%= book.id%>"</a>View Details</a>
               </li>
             <% }) %>
           </ul>
       </section>
 
     </main>
+    <footer></footer>
   </body>
 </html>

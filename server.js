@@ -26,23 +26,32 @@ app.set('view engine', 'ejs');
 
 // API Routes:
 
-// Renders the home page
-app.get('/', (request, response) => {
-  let SQL = `SELECT * FROM books`;
-  return client.query(SQL)
-    .then(results => {
-      console.log('!!!!! results.rows', results.rows); 
-      console.log('!!!!! results.rows.length', results.rows.length) ;
-      response.render('pages/index', {results: results.rows})
-    })
-
-});
-
 // Renders the search form
 app.get('/searches/new', newSearch);
 
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
+
+
+// Renders the home page
+app.get('/', (request, response) => {
+  let SQL = `SELECT * FROM books`;
+
+  return client.query(SQL)
+    .then(results => {
+      // TODO: add an if/else here --->
+      // if (results.rowCount === 0) {
+      // res.render('pages/searches/new')
+      // } else {
+      // res.render('pages/index', {books:result.row});
+      // }
+      console.log('!!!!! results.rows', results.rows); 
+      console.log('!!!!! results.rows.length', results.rows.length) ;
+      response.render('pages/index', {results: results.rows})
+    })
+    // TODO: add .catch(err => handleError(err, res));
+});
+
 
 // Test route
 // app.get('/', (request, response) => {
