@@ -62,8 +62,8 @@ function Book(info) {
 
   this.authors = info.authors || 'No author available';
   this.title = info.title ? info.title : 'No title available';
-  this.isbn = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
-  this.image = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https') : placeholderImage;
+  this.ISBN = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
+  this.image_url = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
 }
 
@@ -130,7 +130,14 @@ function createSearch(request, response) {
   console.log('url', url);
 
   superagent.get(url)
-    .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
+    .then(apiResponse => apiResponse.body.items.map(bookResult => {
+      let bookArr = new Book(bookResult.volumeInfo);
+      console.log(bookArr);
+      return bookArr;
+    })
+    
+    )
+
     .then(results => response.render('pages/searches/show', {searchResults: results}))
     .catch(error => handleError(error, response));
   // console.log('result', );
