@@ -41,10 +41,16 @@ img {
     border-radius: 2px;
 }
 
+.book-img-small {
+    width: 25%;
+}
+
 .book-title {
     margin-top: 5px;
     font-size: 18px;
     font-weight: bold;
+    width: 350px;
+    margin: 0 auto;
 }
 
 .book-author {
@@ -54,7 +60,15 @@ img {
     font-style: italic;
 }
 
-.view-details-button {
+.bood-description {
+    font-size: 12px;
+    width: 350px;
+    margin: 0 auto;
+    text-align: justify;
+    line-height: 17px;
+}
+
+.button {
     background-color: #404040;
     color: #F2F2F2;
     font-size: 15px;
@@ -65,7 +79,7 @@ img {
     border-radius: 2px;
 }
 
-.view-details-button:hover {
+.button:hover {
     background-color: #A6A6A6;
     color: #404040;
 }

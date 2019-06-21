@@ -6,27 +6,39 @@
     <title>Document</title>
 </head>
 <body>
-  <h1>Your Query Results:</h1>
-    <ul>
-        <% searchResults.forEach(item => { %>
-          <li>
-          <img src="<%=item.image_url%>">
-          </li>
-          <li><%= item.title %></li>
-          <li><%= item.authors %></li>
-          <li><%= item.description %></li>
-          <form id="create-form" action="/searches" method="post">
-            <input type="text" name="title" placeholder="<%= item.title %>" required>
-            <input type="text" name="author" placeholder="<%= item.authors %>" required>
-            <input type="text" name="ISBN" placeholder="<%= item.ISBN %>" required>
-            <input type="text" name="imageURL" placeholder="<%= item.image_url %>" required>
-            <input type="text" name="description" placeholder="<%= item.description %>" required>
-            <input type="text" name="bookshelf" placeholder="Enter a bookshelf name" required>
+    <main>
+        <nav>
+            <h1>Best Books!</h1>
+          </nav>
+          <div class="sub-title">
+              <h3>Your Search Results <% searchResults.forEach(item => { %></h3>
+          </div>
 
-            <button class="lng-btn" type="submit">Add to database</button>
-          </form>
-        <% }) %>
-  
-      </ul>
+          <ul>
+            <div class="book-item">
+                <li>
+                    <img class="book-img-small" src="<%=item.image_url%>">
+                    </li>
+                    <li class="book-title"><%= item.title %></li>
+                    <li class="book-author"><%= item.authors %></li>
+                    <li class="bood-description"><%= item.description %></li>
+            </div>
+                
+                <form id="create-form" action="/searches" method="post">
+                  <input type="text" name="title" placeholder="<%= item.title %>" required>
+                  <input type="text" name="author" placeholder="<%= item.authors %>" required>
+                  <input type="text" name="ISBN" placeholder="<%= item.ISBN %>" required>
+                  <input type="text" name="imageURL" placeholder="<%= item.image_url %>" required>
+                  <input type="text" name="description" placeholder="<%= item.description %>" required>
+                  <input type="text" name="bookshelf" placeholder="Enter a bookshelf name" required>
+      
+                  <button class="button" type="submit">Add to database</button>
+                </form>
+              <% }) %>
+        
+            </ul>
+
+    </main>
+    <%- include('../../layouts/footer') %>
 </body>
 </html>
