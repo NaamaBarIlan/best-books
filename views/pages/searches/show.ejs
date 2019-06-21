@@ -11,11 +11,11 @@
             <h1>Best Books!</h1>
           </nav>
           <div class="sub-title">
-              <% searchResults.forEach(item => { %>
               <h3>Your Search Results</h3>
           </div>
 
           <ul>
+            <% searchResults.forEach(item => { %>
             <div class="book-item">
                 <li>
                     <img class="book-img-small" src="<%=item.image_url%>">
@@ -23,7 +23,7 @@
                     <li class="book-title"><%= item.title %></li>
                     <li class="book-author"><%= item.authors %></li>
                     <li class="book-description"><%= item.description %></li>
-                    <button id="update-button" type="submit">Add to Collection</button>
+                    <!-- <button id="add-button" type="submit">Add to Collection</button> -->
             </div>
                 
                 <form id="create-form" action="/books" method="post">
@@ -33,7 +33,7 @@
                   <input type="text" name="image_url" value="<%= item.image_url %>" required>
                   <input type="text" name="description" value="<%= item.description %>" required>
                   <input type="text" name="bookshelf" required>
-                  <button class="button" type="submit">Add to database</button>
+                  <button class="button" type="submit">Add to Collection</button>
                 </form>
               <% }) %>
         
