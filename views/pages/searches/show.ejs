@@ -22,7 +22,8 @@
                     </li>
                     <li class="book-title"><%= item.title %></li>
                     <li class="book-author"><%= item.authors %></li>
-                    <li class="bood-description"><%= item.description %></li>
+                    <li class="book-description"><%= item.description %></li>
+                    <button id="update-button" type="submit">Add to Collection</button>
             </div>
                 
                 <form id="create-form" action="/books" method="post">
@@ -38,7 +39,7 @@
         
             </ul>
 
-    </main>
+    <!-- </main> -->
     <%- include('../../layouts/footer') %>
 </body>
 </html>
