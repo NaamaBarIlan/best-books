@@ -22,6 +22,34 @@ button {
     margin-top: 20px;
 }
 
+
+/* Update Form */
+
+#create-form {
+    background-color: #F2F2F2;
+    box-shadow: -2px 2px 6px #595959;
+    margin: 0 auto;
+    Margin-top: 5px;    
+    width: 410px;
+    height: 100%x;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+#create-form input {
+    margin: 0 auto;
+    font-size: 12px;
+    width: 50px;
+    display: inherit;
+    width: 300px;
+    line-height: 28px;
+    margin-top: 20px;
+}
+
+#form-description {
+    line-height: 50px;
+}
+
 /* Saved Books in Index.ejs */
 
 .book-item {
@@ -30,7 +58,7 @@ button {
     margin: 0 auto;
     Margin-top: 30px;
     width: 410px;
-    height: 420px;
+    height: 100%;
     border-radius: 2px;
 }
 
@@ -60,9 +88,11 @@ img {
     font-style: italic;
 }
 
-.bood-description {
+.book-description {
     font-size: 12px;
     width: 350px;
+    overflow: hidden;
+    height: 152px;
     margin: 0 auto;
     text-align: justify;
     line-height: 17px;
@@ -79,7 +109,27 @@ img {
     border-radius: 2px;
 }
 
+
 .button:hover {
+    background-color: #A6A6A6;
+    color: #404040;
+}
+
+#update-button
+{
+    background-color: #404040;
+    color: #F2F2F2;
+    font-size: 15px;
+    padding: 12px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#update-button:hover {
     background-color: #A6A6A6;
     color: #404040;
 }
