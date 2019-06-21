@@ -11,7 +11,8 @@
             <h1>Best Books!</h1>
           </nav>
           <div class="sub-title">
-              <h3>Your Search Results <% searchResults.forEach(item => { %></h3>
+              <% searchResults.forEach(item => { %>
+              <h3>Your Search Results</h3>
           </div>
 
           <ul>
@@ -25,15 +26,14 @@
                     <button id="update-button" type="submit">Add to Collection</button>
             </div>
                 
-                <form id="create-form" action="/searches" method="post">
-                  <input type="text" name="title" placeholder="<%= item.title %>" required>
-                  <input type="text" name="author" placeholder="<%= item.authors %>" required>
-                  <input type="text" name="ISBN" placeholder="<%= item.ISBN %>" required>
-                  <input type="text" name="imageURL" placeholder="<%= item.image_url %>" required>
-                  <input id=form-description type="text" name="description" placeholder="<%= item.description %>" required>
-                  <input type="text" name="bookshelf" placeholder="Enter a bookshelf name" required>
-      
-                  <button class="button" type="submit">Update Details</button>
+                <form id="create-form" action="/books" method="post">
+                  <input type="text" name="title" value="<%= item.title %>" required>
+                  <input type="text" name="author" value="<%= item.authors %>" required>
+                  <input type="text" name="isbn" value="<%= item.isbn %>" required>
+                  <input type="text" name="image_url" value="<%= item.image_url %>" required>
+                  <input type="text" name="description" value="<%= item.description %>" required>
+                  <input type="text" name="bookshelf" required>
+                  <button class="button" type="submit">Add to database</button>
                 </form>
               <% }) %>
         
