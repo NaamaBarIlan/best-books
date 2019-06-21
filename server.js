@@ -62,7 +62,7 @@ function Book(info) {
 
   this.authors = info.authors || 'No author available';
   this.title = info.title ? info.title : 'No title available';
-  this.ISBN = info.industryIdentifiers ? `ISBN_13 ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
+  this.isbn = info.industryIdentifiers ? `isbn_13 ${info.industryIdentifiers[0].identifier}` : 'No isbn available';
   this.image_url = info.imageLinks ? info.imageLinks.thumbnail.replace(httpRegex, 'https') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
 }
@@ -80,17 +80,20 @@ function viewBookDetails(request, response) {
 
 function createBook(request, response){
   // ******* Creates a book in our DB *******
-  let { author, title, ISBN, image_url, description, bookshelf } = request.body;
-  let SQL = 'INSERT INTO books(author, title, ISBN, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6);';
-  let values = [author, title, ISBN, image_url, description, bookshelf];
+  console.log(request.body);
+  let { author, title, isbn, image_url, description, bookshelf } = request.body;
+  let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) RETURNING id;';
+  let values = [author, title, isbn, image_url, description, bookshelf];
 
   return client.query(SQL, values)
-    .then(() => {
-      SQL = 'SELECT * FROM "books" WHERE ISBN=$1;';
-      values = [request.body.ISBN];
-      return client.query(SQL, values)
-        .then(result => response.redirect(`/book/${result.rows[0].id}`))
-        .catch(error => handleError(error, response))
+    .then(sqlResults => {
+      response.redirect(`/books/${sqlResults.rows[0].id}`)
+
+
+      // SQL = 'SELECT * FROM books WHERE isbn=$1;';
+      // values = [request.body.id];
+      // return client.query(SQL, values)
+      //   .catch(error => handleError(error, response))
     })
     .catch(error => handleError(error, response));
 }
@@ -121,18 +124,18 @@ function renderHomepage(request, response) {
 function createSearch(request, response) {
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  console.log('this is request body!', request.body);
-  console.log('this is request body search', request.body.search);
-  console.log('Test', request.body.search[1]);
+  // console.log('this is request body!', request.body);
+  // console.log('this is request body search', request.body.search);
+  // console.log('Test', request.body.search[1]);
 
   if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
   if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
-  console.log('url', url);
+  // console.log('url', url);
 
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => {
       let bookArr = new Book(bookResult.volumeInfo);
-      console.log(bookArr);
+      // console.log(bookArr);
       return bookArr;
     })
     
