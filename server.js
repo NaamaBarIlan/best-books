@@ -4,6 +4,7 @@
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
+const methodOverride = require('method-override');
 
 // Environment variables
 require('dotenv').config();
@@ -15,6 +16,16 @@ const PORT = process.env.PORT || 3000;
 // Application Middleware
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
+
+// Method overide
+app.use(methodOverride((request, response) => {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST bodies and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}));
 
 // Database Setup
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -38,8 +49,14 @@ app.get('/searches/new', newSearch);
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
 
-
+// Save book info to DB
 app.post('/books', createBook);
+
+// Update book info in DB
+app.put('/books/:id', updateBook);
+
+// Delete book from DB
+app.delete('/books/:id', deleteBook);
 
 // arguments pulled out, refactor to use inline as needed
 const path = '*';
@@ -54,7 +71,6 @@ app.get(path, pathNotFoundHandler);
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
 // HELPER FUNCTIONS
-// Only show part of this to get students started
 function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 
@@ -79,7 +95,6 @@ function viewBookDetails(request, response) {
 }
 
 function createBook(request, response){
-  // ******* Creates a book in our DB *******
   console.log(request.body);
   let { author, title, isbn, image_url, description, bookshelf } = request.body;
   let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES($1, $2, $3, $4, $5, $6) RETURNING id;';
@@ -88,12 +103,6 @@ function createBook(request, response){
   return client.query(SQL, values)
     .then(sqlResults => {
       response.redirect(`/books/${sqlResults.rows[0].id}`)
-
-
-      // SQL = 'SELECT * FROM books WHERE isbn=$1;';
-      // values = [request.body.id];
-      // return client.query(SQL, values)
-      //   .catch(error => handleError(error, response))
     })
     .catch(error => handleError(error, response));
 }
@@ -102,6 +111,24 @@ function newSearch(request, response) {
   response.render('pages/searches/new');
 }
 
+function updateBook (request, response) {
+  let { author, title, isbn, image_url, description, bookshelf } = request.body;
+  let SQL = `UPDATE books SET  author=$1, title=$2, isbn=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id=$7;`;
+  let values = [author, title, isbn, image_url, description, bookshelf, request.params.id];
+
+  client.query(SQL, values)
+    .then(response.redirect(`/books/${request.params.id}`))
+    .catch(err => handleError(err, response));
+}
+
+function deleteBook(request, response) {
+  let SQL = 'DELETE FROM books WHERE id=$1;';
+  let values = [request.params.id];
+
+  return client.query(SQL, values)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
+}
 
 function renderHomepage(request, response) {
   let SQL = `SELECT * FROM books`;
@@ -145,6 +172,9 @@ function createSearch(request, response) {
     .catch(error => handleError(error, response));
   // console.log('result', );
 }
+
+
+
 
 // Error handling
 function handleError(error, response) {

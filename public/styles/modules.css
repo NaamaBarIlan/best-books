@@ -115,7 +115,7 @@ img {
     color: #404040;
 }
 
-#update-button
+#add-button
 {
     background-color: #404040;
     color: #F2F2F2;
@@ -129,7 +129,7 @@ img {
     margin-bottom: 20px;
 }
 
-#update-button:hover {
+#add-button:hover {
     background-color: #A6A6A6;
     color: #404040;
 }
