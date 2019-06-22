@@ -20,7 +20,6 @@ app.use(express.static('./public'));
 // Method overide
 app.use(methodOverride((request, response) => {
   if (request.body && typeof request.body === 'object' && '_method' in request.body) {
-    // look in urlencoded POST bodies and delete it
     let method = request.body._method;
     delete request.body._method;
     return method;
@@ -135,12 +134,6 @@ function renderHomepage(request, response) {
 
   return client.query(SQL)
     .then(results => {
-      // TODO: add an if/else here --->
-      // if (results.rowCount === 0) {
-      // res.render('pages/searches/new')
-      // } else {
-      // res.render('pages/index', {books:result.row});
-      // }
       response.render('pages/index', {results: results.rows})
     })
     // .catch(error => handleError(error, response));
